@@ -12,12 +12,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.odinuts.backpackingegypt.R;
-import com.odinuts.backpackingegypt.home.HomeActivity;
+import com.odinuts.backpackingegypt.main.HomeActivity;
 import com.odinuts.backpackingegypt.signup.SignupActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-  private static final String TAG = "LoginActivity";
   private static final int REQUEST_SIGN_UP = 0;
 
   @BindView(R.id.email_et) EditText emailText;

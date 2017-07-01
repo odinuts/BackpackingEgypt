@@ -9,14 +9,18 @@
   <string name="create_account">Create Account</string>
   <string name="already_a_member_login">Already a member? Log in!</string>
   <string name="country">Country</string>
+  <string name="logo">Logo</string>
+  <string name="login">Log in</string>
+  <string name="no_account_yet_create_one">No account yet? Create one!</string>
+  <string name="request_failed">Something went wrong. Please try again later</string>
+  <string name="name_error">Display name can\'t be empty</string>
+  <string name="username_error">Username can\'t be empty</string>
+  <string name="password_regex">
+    <![CDATA[^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{4,}$]]></string>
+  <string name="please_wait">Please wait…</string>
   <string name="title_activity_home">HomeActivity</string>
   <string name="title_home">Home</string>
-  <string name="title_dashboard">Explore</string>
-  <string name="title_notifications">Profile</string>
-  <string name="logo">Logo</string>
-  <string name="login">Login</string>
-  <string name="no_account_yet_create_one">No account yet? Create one!</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="title_explore">Explore</string>
+  <string name="title_profile">Profile</string>
+  <string name="loading">Loading…</string>
 </resources>
