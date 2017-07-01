@@ -1,33 +1,34 @@
 package com.odinuts.backpackingegypt.main.home;
 
 import android.support.annotation.NonNull;
-import com.odinuts.backpackingegypt.apis.BackpackerService;
+import android.util.Log;
 import com.odinuts.backpackingegypt.apis.PixabyService;
 import com.odinuts.backpackingegypt.models.PixabyImage;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomePresenter implements HomeContract.UserActionsListener {
+class HomePresenter implements HomeContract.UserActionsListener {
   private HomeContract.View view;
-  private List<PixabyImage> pixabyImages = new ArrayList<>();
+  private String query = "Egypt";
+  private String imageType = "photo";
+  private String orientation = "horizontal";
 
   HomePresenter(@NonNull HomeContract.View view1) {
     view = view1;
   }
 
   @Override public void getImages(String key) {
-    PixabyImage pixabyImage = new PixabyImage();
-    Call<List<PixabyImage>> call = initiateRetrofit().getImages(key);
+    Call<List<PixabyImage>> call = initiateRetrofit().getImages(key, query, imageType);
     call.enqueue(new Callback<List<PixabyImage>>() {
       @Override
       public void onResponse(Call<List<PixabyImage>> call, Response<List<PixabyImage>> response) {
-        Collections.copy(response.body(), pixabyImages);
-
-        view.handleCallbackSuccess();
+        Log.i("TAG", "onResponse: " + response.body());
+        List<PixabyImage> pixabyImages = new ArrayList<>(response.body());
+        view.hideLoading();
+        view.handleCallbackSuccess(pixabyImages);
       }
 
       @Override public void onFailure(Call<List<PixabyImage>> call, Throwable t) {
@@ -36,12 +37,8 @@ public class HomePresenter implements HomeContract.UserActionsListener {
     });
   }
 
-  @Override public List<PixabyImage> getPixabyImages() {
-    return pixabyImages;
-  }
-
   @Override public PixabyService initiateRetrofit() {
     PixabyService pixabyService;
-    return pixabyService = BackpackerService.retrofit.create(PixabyService.class);
+    return pixabyService = PixabyService.retrofit.create(PixabyService.class);
   }
 }

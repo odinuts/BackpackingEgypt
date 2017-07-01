@@ -21,6 +21,7 @@ class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreViewHold
   ExploreAdapter(Context context, List<Images> imageViews) {
     images = imageViews;
     this.context = context;
+    notifyDataSetChanged();
   }
 
   @Override public ExploreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

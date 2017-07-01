@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.odinuts.backpackingegypt.R;
@@ -20,10 +21,11 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
   HomeAdapter(Context context, List<PixabyImage> images) {
     this.context = context;
     this.images = images;
+    notifyDataSetChanged();
   }
 
   @Override public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).
+    View view = LayoutInflater.from(context).
         inflate(R.layout.home_image_item, parent, false);
     return new HomeViewHolder(view);
   }
@@ -40,7 +42,8 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
   }
 
   static class HomeViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.cardImageIv) ImageView image;
+    @BindView(R.id.homeImageIv) ImageView image;
+    @BindView(R.id.homeTv) TextView textView;
 
     HomeViewHolder(View itemView) {
       super(itemView);

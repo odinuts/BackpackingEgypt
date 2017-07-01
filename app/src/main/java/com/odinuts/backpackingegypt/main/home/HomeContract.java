@@ -11,7 +11,7 @@ public interface HomeContract {
 
     void hideLoading();
 
-    void handleCallbackSuccess();
+    void handleCallbackSuccess(List<PixabyImage> pixabyImage);
 
     void handleCallbackError();
   }
@@ -19,8 +19,6 @@ public interface HomeContract {
   interface UserActionsListener {
 
     void getImages(String key);
-
-    List<PixabyImage> getPixabyImages();
 
     PixabyService initiateRetrofit();
   }

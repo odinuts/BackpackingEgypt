@@ -6,14 +6,14 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PixabyService {
 
-  Retrofit retrofit = new Retrofit.Builder().baseUrl("https://pixabay.com/api/")
+  Retrofit retrofit = new Retrofit.Builder().baseUrl("https://pixabay.com/")
       .addConverterFactory(MoshiConverterFactory.create())
       .build();
 
-  @GET("?key{key}/q=egypt&image_type=photo&orientation=horizontal")
-  Call<List<PixabyImage>> getImages(@Path("key") String key);
+  @GET("api/") Call<List<PixabyImage>> getImages(@Query("key") String key, @Query("q") String query,
+      @Query("image_type") String imageType);
 }

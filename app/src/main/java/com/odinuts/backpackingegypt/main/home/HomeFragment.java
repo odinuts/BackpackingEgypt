@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.odinuts.backpackingegypt.R;
+import com.odinuts.backpackingegypt.models.PixabyImage;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
   private static final String ARG_PARAM1 = "param1";
@@ -26,14 +28,14 @@ public class HomeFragment extends Fragment implements HomeContract.View {
   public HomeFragment() {
   }
 
-  public static HomeFragment newInstance(String param1, String param2) {
+  /*public static HomeFragment newInstance(String param1, String param2) {
     HomeFragment fragment = new HomeFragment();
     Bundle args = new Bundle();
     args.putString(ARG_PARAM1, param1);
     args.putString(ARG_PARAM2, param2);
     fragment.setArguments(args);
     return fragment;
-  }
+  }*/
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -42,19 +44,18 @@ public class HomeFragment extends Fragment implements HomeContract.View {
       mParam2 = getArguments().getString(ARG_PARAM2);
     }
     userActionsListener = new HomePresenter(this);
-    userActionsListener.getImages(getString(R.string.pixaby_api_key));
-    initViews();
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     ButterKnife.bind(this, view);
+    userActionsListener.getImages(getString(R.string.pixaby_api_key));
     return view;
   }
 
-  private void initViews() {
-    homeRv.setAdapter(new HomeAdapter(getContext(), userActionsListener.getPixabyImages()));
+  private void initViews(List<PixabyImage> pixabyImage) {
+    homeRv.setAdapter(new HomeAdapter(getContext(), pixabyImage));
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     homeRv.setLayoutManager(layoutManager);
     homeRv.setItemAnimator(new DefaultItemAnimator());
@@ -65,9 +66,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
   @Override public void showLoading() {
     hideLoading();
     progressDialog = new ProgressDialog(getContext());
-    progressDialog.setMessage(getString(R.string.loading));
     progressDialog.setIndeterminate(true);
     progressDialog.setCancelable(false);
+    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     progressDialog.show();
   }
 
@@ -79,11 +80,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
   }
 
-  @Override public void handleCallbackSuccess() {
-
+  @Override public void handleCallbackSuccess(List<PixabyImage> pixabyImage) {
+    initViews(pixabyImage);
   }
 
   @Override public void handleCallbackError() {
-
   }
 }
