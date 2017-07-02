@@ -1,6 +1,7 @@
 package com.odinuts.backpackingegypt.signup;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import com.odinuts.backpackingegypt.apis.BackpackerService;
 import com.odinuts.backpackingegypt.models.Backpacker;
 import com.odinuts.backpackingegypt.models.Countries;
@@ -33,21 +34,24 @@ class SignupPresenter implements SignupContract.UserActionsListener {
     backpacker.setCountry(country);
     backpacker.setPassword(password);
 
+    view.showLoading();
+
     Call<Backpacker> call = initiateRetrofit().signUp(backpacker);
     call.enqueue(new Callback<Backpacker>() {
       @Override public void onResponse(Call<Backpacker> call, Response<Backpacker> response) {
+        Log.d("Signup success call", "onResponse: " + response.body());
         view.handleSignUpSuccess();
-        // view.saveToken(response.body().getToken());
+        view.saveToken(response.body().getToken());
       }
 
       @Override public void onFailure(Call<Backpacker> call, Throwable t) {
+        Log.d("Signup failure call", "onFailure: " + t.getMessage());
         view.handleSignUpError();
       }
     });
   }
 
-  @Override public BackpackerService initiateRetrofit() {
-    BackpackerService backpackerService;
-    return backpackerService = BackpackerService.retrofit.create(BackpackerService.class);
+  private BackpackerService initiateRetrofit() {
+    return BackpackerService.retrofit.create(BackpackerService.class);
   }
 }

@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main.home;
+package com.odinuts.backpackingegypt.home;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -17,40 +17,22 @@ import com.odinuts.backpackingegypt.models.PixabyImage;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
   @BindView(R.id.countryRv) RecyclerView homeRv;
-  private String mParam1;
-  private String mParam2;
   private ProgressDialog progressDialog;
   private HomeContract.UserActionsListener userActionsListener;
-
-  public HomeFragment() {
-  }
-
-  /*public static HomeFragment newInstance(String param1, String param2) {
-    HomeFragment fragment = new HomeFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
-    return fragment;
-  }*/
+  private List<PixabyImage> pixabyImagesList;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
     userActionsListener = new HomePresenter(this);
+    userActionsListener.getImages(getString(R.string.pixaby_api_key));
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     ButterKnife.bind(this, view);
-    userActionsListener.getImages(getString(R.string.pixaby_api_key));
+    initViews(pixabyImagesList);
     return view;
   }
 
@@ -81,7 +63,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
   }
 
   @Override public void handleCallbackSuccess(List<PixabyImage> pixabyImage) {
-    initViews(pixabyImage);
+    pixabyImagesList = pixabyImage;
   }
 
   @Override public void handleCallbackError() {

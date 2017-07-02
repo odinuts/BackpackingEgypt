@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main.home;
+package com.odinuts.backpackingegypt.home;
 
 import com.odinuts.backpackingegypt.apis.PixabyService;
 import com.odinuts.backpackingegypt.models.PixabyImage;

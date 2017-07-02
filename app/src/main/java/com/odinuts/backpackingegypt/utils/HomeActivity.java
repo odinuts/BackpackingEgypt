@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main;
+package com.odinuts.backpackingegypt.utils;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.odinuts.backpackingegypt.R;
-import com.odinuts.backpackingegypt.main.explore.ExploreFragment;
-import com.odinuts.backpackingegypt.main.home.HomeFragment;
-import com.odinuts.backpackingegypt.main.profile.ProfileFragment;
+import com.odinuts.backpackingegypt.explore.ExploreFragment;
+import com.odinuts.backpackingegypt.home.HomeFragment;
+import com.odinuts.backpackingegypt.profile.ProfileFragment;
 
 public class HomeActivity extends AppCompatActivity {
 

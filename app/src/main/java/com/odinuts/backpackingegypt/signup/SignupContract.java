@@ -1,6 +1,5 @@
 package com.odinuts.backpackingegypt.signup;
 
-import com.odinuts.backpackingegypt.apis.BackpackerService;
 import java.util.List;
 
 public interface SignupContract {
@@ -26,7 +25,5 @@ public interface SignupContract {
 
     void signUp(String name, String username, String email, String bio, String country,
         String password, String passwordRe);
-
-    BackpackerService initiateRetrofit();
   }
 }

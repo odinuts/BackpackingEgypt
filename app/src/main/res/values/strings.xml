@@ -23,4 +23,9 @@
   <string name="title_explore">Explore</string>
   <string name="title_profile">Profile</string>
   <string name="loading">Loading…</string>
+  <string name="account_created">Account created!</string>
+  <string name="email_validation">Enter a valid email address</string>
+  <string name="password_validation">Passwords must contain uppercase letters, numbers, and symbols.</string>
+  <string name="password_re_validation">Passwords don\'t match</string>
+  <string name="login_failed">Login failed</string>
 </resources>

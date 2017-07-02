@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main.explore;
+package com.odinuts.backpackingegypt.profile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,42 +16,22 @@ import com.odinuts.backpackingegypt.models.Images;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExploreFragment extends Fragment {
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
-  @BindView(R.id.citiesRv) RecyclerView citiesRv;
-  private String mParam1;
-  private String mParam2;
-
-  public ExploreFragment() {
-  }
-
-  public static ExploreFragment newInstance(String param1, String param2) {
-    ExploreFragment fragment = new ExploreFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
-    return fragment;
-  }
+public class ProfileFragment extends Fragment {
+  @BindView(R.id.userPhotosRv) RecyclerView userPhotos;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_explore, container, false);
+    View view = inflater.inflate(R.layout.fragment_profile, container, false);
     ButterKnife.bind(this, view);
-    citiesRv.setAdapter(new ExploreAdapter(getContext(), prepareData()));
+    userPhotos.setAdapter(new ProfileAdapter(getContext(), prepareData()));
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-    citiesRv.setLayoutManager(layoutManager);
-    citiesRv.setItemAnimator(new DefaultItemAnimator());
-    citiesRv.addItemDecoration(
+    userPhotos.setItemAnimator(new DefaultItemAnimator());
+    userPhotos.setLayoutManager(layoutManager);
+    userPhotos.addItemDecoration(
         new DividerItemDecoration(getContext(), layoutManager.getOrientation()));
     return view;
   }
@@ -62,7 +42,6 @@ public class ExploreFragment extends Fragment {
       Images image = new Images();
       images.add(image);
     }
-
     return images;
   }
 }

@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main.home;
+package com.odinuts.backpackingegypt.home;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -25,6 +25,7 @@ class HomePresenter implements HomeContract.UserActionsListener {
     call.enqueue(new Callback<List<PixabyImage>>() {
       @Override
       public void onResponse(Call<List<PixabyImage>> call, Response<List<PixabyImage>> response) {
+        Log.i("TAG", "onResponse: " + response.toString());
         Log.i("TAG", "onResponse: " + response.body());
         List<PixabyImage> pixabyImages = new ArrayList<>(response.body());
         view.hideLoading();
@@ -32,6 +33,7 @@ class HomePresenter implements HomeContract.UserActionsListener {
       }
 
       @Override public void onFailure(Call<List<PixabyImage>> call, Throwable t) {
+        Log.d("TAG", "onFailure: " + t.getMessage());
         view.handleCallbackError();
       }
     });

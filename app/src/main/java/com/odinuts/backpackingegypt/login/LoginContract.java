@@ -1,15 +1,22 @@
 package com.odinuts.backpackingegypt.login;
 
-import com.odinuts.backpackingegypt.apis.BackpackerService;
+import retrofit2.http.Header;
 
 public interface LoginContract {
 
   interface View {
+    void showLoading();
+
+    void hideLoading();
+
+    void handleSignUpSuccess();
+
+    void handleSignUpError();
+
+    void startHomeActivity();
   }
 
   interface UserActionsListener {
-    void signIn(String username, String password);
-
-    BackpackerService initiateRetrofit();
+    void signIn(@Header("key") String key, String username, String password);
   }
 }

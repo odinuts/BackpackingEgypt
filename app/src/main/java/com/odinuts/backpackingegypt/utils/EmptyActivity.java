@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import com.odinuts.backpackingegypt.R;
-import com.odinuts.backpackingegypt.main.HomeActivity;
+import com.odinuts.backpackingegypt.login.LoginActivity;
 
 public class EmptyActivity extends AppCompatActivity {
 
@@ -17,8 +17,8 @@ public class EmptyActivity extends AppCompatActivity {
     SharedPreferences token = PreferenceManager.getDefaultSharedPreferences(this);
     String accessToken = token.getString("KEY_TOKEN", "");
 
-    if (!accessToken.isEmpty()) {
-      activityIntent = new Intent(this, HomeActivity.class);
+    if (accessToken.isEmpty()) {
+      activityIntent = new Intent(this, LoginActivity.class);
     } else {
       activityIntent = new Intent(this, HomeActivity.class);
     }

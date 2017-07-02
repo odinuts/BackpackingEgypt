@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main.profile;
+package com.odinuts.backpackingegypt.profile;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

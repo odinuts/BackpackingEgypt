@@ -1,4 +1,4 @@
-package com.odinuts.backpackingegypt.main.profile;
+package com.odinuts.backpackingegypt.explore;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,42 +16,22 @@ import com.odinuts.backpackingegypt.models.Images;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends Fragment {
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
-  @BindView(R.id.userPhotosRv) RecyclerView userPhotos;
-  private String mParam1;
-  private String mParam2;
-
-  public ProfileFragment() {
-  }
-
-  public static ProfileFragment newInstance(String param1, String param2) {
-    ProfileFragment fragment = new ProfileFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
-    return fragment;
-  }
+public class ExploreFragment extends Fragment {
+  @BindView(R.id.citiesRv) RecyclerView citiesRv;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_profile, container, false);
+    View view = inflater.inflate(R.layout.fragment_explore, container, false);
     ButterKnife.bind(this, view);
-    userPhotos.setAdapter(new ProfileAdapter(getContext(), prepareData()));
+    citiesRv.setAdapter(new ExploreAdapter(getContext(), prepareData()));
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-    userPhotos.setItemAnimator(new DefaultItemAnimator());
-    userPhotos.setLayoutManager(layoutManager);
-    userPhotos.addItemDecoration(
+    citiesRv.setLayoutManager(layoutManager);
+    citiesRv.setItemAnimator(new DefaultItemAnimator());
+    citiesRv.addItemDecoration(
         new DividerItemDecoration(getContext(), layoutManager.getOrientation()));
     return view;
   }
@@ -62,6 +42,7 @@ public class ProfileFragment extends Fragment {
       Images image = new Images();
       images.add(image);
     }
+
     return images;
   }
 }

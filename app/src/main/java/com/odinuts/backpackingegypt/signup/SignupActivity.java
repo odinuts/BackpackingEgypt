@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,28 +24,30 @@ import com.odinuts.backpackingegypt.login.LoginActivity;
 
 public class SignupActivity extends AppCompatActivity implements SignupContract.View {
 
-  @BindView(R.id.country_tv) TextView country_tv;
-  @BindView(R.id.display_name_et) EditText name_et;
-  @BindView(R.id.username_et) EditText username_et;
-  @BindView(R.id.email_et) EditText email_et;
-  @BindView(R.id.bio_et) EditText bio_et;
-  @BindView(R.id.input_password) EditText password_et;
-  @BindView(R.id.input_reEnterPassword) EditText reEnterPassword_et;
-  @BindView(R.id.btn_signup) Button sign_up_btn;
-  @BindView(R.id.countries_spinner) Spinner countries_spinner;
-  @BindView(R.id.link_login) TextView loginLink;
+  public static final String EXTRA_USERNAME = "EXTRA_USERNAME";
+  public static final String EXTRA_PASSWORD = "EXTRA_PASSWORD";
+  @BindView(R.id.signup_display_name_et) EditText nameEt;
+  @BindView(R.id.signuo_username_et) EditText usernameEt;
+  @BindView(R.id.login_username_et) EditText emailEt;
+  @BindView(R.id.signup_bio_et) EditText bioEt;
+  @BindView(R.id.login_password_et) EditText passwordEt;
+  @BindView(R.id.signup_password_re_et) EditText reEnterPasswordEt;
+  @BindView(R.id.signup_create_account_btn) Button signUpBtn;
+  @BindView(R.id.countries_spinner) Spinner countriesSpinner;
+  @BindView(R.id.signup_login_tv) TextView loginLinkEt;
   private SignupContract.UserActionsListener userActionsListener;
   private String name, username, email, bio, country, password, passwordRe;
   private ProgressDialog progressDialog;
 
-  @OnClick(R.id.btn_signup) public void signUp() {
+  @OnClick(R.id.signup_create_account_btn) public void signUp() {
     if (!validateInputFields()) {
       showLoading();
+      Log.i("Button clicked!", "signUp: ");
       userActionsListener.signUp(name, username, email, bio, country, password, passwordRe);
     }
   }
 
-  @OnClick(R.id.link_login) public void loginLink() {
+  @OnClick(R.id.signup_login_tv) public void loginLink() {
     startLoginActivity();
   }
 
@@ -57,9 +60,8 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
     ArrayAdapter<String> arrayAdapter =
         new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
             userActionsListener.populateSpinnerList());
-    countries_spinner.setAdapter(arrayAdapter);
-
-    countries_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    countriesSpinner.setAdapter(arrayAdapter);
+    countriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         country = parent.getItemAtPosition(position).toString();
@@ -72,12 +74,12 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
   }
 
   private void initializeStrings() {
-    name = name_et.getText().toString();
-    username = username_et.getText().toString();
-    email = email_et.getText().toString();
-    bio = bio_et.getText().toString();
-    password = password_et.getText().toString();
-    passwordRe = reEnterPassword_et.getText().toString();
+    name = nameEt.getText().toString();
+    username = usernameEt.getText().toString();
+    email = emailEt.getText().toString();
+    bio = bioEt.getText().toString();
+    password = passwordEt.getText().toString();
+    passwordRe = reEnterPasswordEt.getText().toString();
   }
 
   @Override public void showLoading() {
@@ -99,9 +101,9 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
 
   @Override public void handleSignUpSuccess() {
     hideLoading();
-    sign_up_btn.setEnabled(false);
     setResult(RESULT_OK, null);
-    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+    startLoginActivity();
+    Toast.makeText(this, R.string.account_created, Toast.LENGTH_SHORT).show();
     finish();
   }
 
@@ -111,13 +113,15 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
   }
 
   @Override public void handleSignUpError() {
+    hideLoading();
     Toast.makeText(getBaseContext(), R.string.request_failed, Toast.LENGTH_SHORT).show();
-    sign_up_btn.setEnabled(true);
   }
 
   @Override public void startLoginActivity() {
     Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-    startActivity(intent);
+    intent.putExtra(EXTRA_USERNAME, username);
+    intent.putExtra(EXTRA_PASSWORD, password);
+    startActivityForResult(intent, 1);
     finish();
     overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
   }
@@ -133,24 +137,24 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
     boolean valid = true;
 
     if (name.isEmpty()) {
-      name_et.setError(getString(R.string.name_error));
+      nameEt.setError(getString(R.string.name_error));
       valid = false;
     } else {
-      name_et.setError(null);
+      nameEt.setError(null);
     }
 
     if (username.isEmpty()) {
-      username_et.setError(getString(R.string.username_error));
+      usernameEt.setError(getString(R.string.username_error));
       valid = false;
     } else {
-      username_et.setError(null);
+      usernameEt.setError(null);
     }
 
     if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-      email_et.setError("Enter a valid email address");
+      emailEt.setError(getString(R.string.email_validation));
       valid = false;
     } else {
-      email_et.setError(null);
+      emailEt.setError(null);
     }
 
     if (country.isEmpty()) {
@@ -170,17 +174,17 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
     $                     # end-of-string */
 
     if (!password.matches(passwordPattern)) {
-      password_et.setError("Passwords must contain uppercase letters, numbers, and symbols.");
+      passwordEt.setError(getString(R.string.password_validation));
       valid = false;
     } else {
-      password_et.setError(null);
+      passwordEt.setError(null);
     }
 
     if (!passwordRe.equals(password)) {
-      reEnterPassword_et.setError("Passwords don't match");
+      reEnterPasswordEt.setError(getString(R.string.password_re_validation));
       valid = false;
     } else {
-      reEnterPassword_et.setError(null);
+      reEnterPasswordEt.setError(null);
     }
 
     return valid;

@@ -6,6 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface BackpackerService {
@@ -14,9 +15,10 @@ public interface BackpackerService {
       .addConverterFactory(MoshiConverterFactory.create())
       .build();
 
-  @GET("backpacker/myprofile") Call<Backpacker> getMyProfile(@Body Backpacker backpacker);
+  @GET("backpacker/myprofile") Call<Backpacker> getMyProfile(@Header("key") String key);
 
   @POST("auth/signup") Call<Backpacker> signUp(@Body Backpacker backpacker);
 
-  @POST("auth/login") Call<Backpacker> signIn(@Body Backpacker backpacker);
+  @POST("auth/login") Call<Backpacker> signIn(@Header("key") String key,
+      @Body Backpacker backpacker);
 }

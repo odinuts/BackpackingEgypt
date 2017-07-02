@@ -8,12 +8,12 @@
     android:background="@drawable/back"
     android:orientation="vertical"
     >
+
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="@color/colorPrimary"
-      android:elevation="4dp"
       >
 
     <RelativeLayout
@@ -34,10 +34,12 @@
           tools:ignore="RelativeOverlap"
           />
     </RelativeLayout>
+
   </android.support.v7.widget.Toolbar>
+
   <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:fitsSystemWindows="true"
       >
 
@@ -51,7 +53,7 @@
         >
 
       <ImageView
-          android:layout_width="wrap_content"
+          android:layout_width="72dp"
           android:layout_height="72dp"
           android:layout_gravity="center_horizontal"
           android:layout_marginBottom="24dp"
@@ -62,14 +64,13 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="8dp"
-          android:layout_marginTop="8dp"
-          android:textColor="@color/colorAccent"
+          android:textColor="@android:color/white"
           android:textColorHint="@android:color/white"
           >
         <EditText
-            android:id="@+id/display_name_et"
+            android:id="@+id/signup_display_name_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/display_name"
             android:inputType="textPersonName"
             />
@@ -84,11 +85,11 @@
           android:textColorHint="@android:color/white"
           >
         <EditText
-            android:id="@+id/username_et"
+            android:id="@+id/signuo_username_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/username"
-            android:inputType="text"
+            android:inputType="textPersonName"
             />
       </android.support.design.widget.TextInputLayout>
 
@@ -101,9 +102,9 @@
           android:textColorHint="@android:color/white"
           >
         <EditText
-            android:id="@+id/email_et"
+            android:id="@+id/login_username_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             />
@@ -118,7 +119,6 @@
           android:padding="4dp"
           >
         <TextView
-            android:id="@+id/country_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -132,6 +132,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAlignment="center"
             >
         </Spinner>
       </LinearLayout>
@@ -145,9 +146,9 @@
           android:textColorHint="@android:color/white"
           >
         <EditText
-            android:id="@+id/bio_et"
+            android:id="@+id/signup_bio_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/a_short_bio"
             android:inputType="textMultiLine"
             />
@@ -162,9 +163,9 @@
           android:textColorHint="@android:color/white"
           >
         <EditText
-            android:id="@+id/input_password"
+            android:id="@+id/login_password_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/password"
             android:inputType="textPassword"
             />
@@ -179,16 +180,16 @@
           android:textColorHint="@android:color/white"
           >
         <EditText
-            android:id="@+id/input_reEnterPassword"
+            android:id="@+id/signup_password_re_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/re_enter_password"
             android:inputType="textPassword"
             />
       </android.support.design.widget.TextInputLayout>
 
       <android.support.v7.widget.AppCompatButton
-          android:id="@+id/btn_signup"
+          android:id="@+id/signup_create_account_btn"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="24dp"
@@ -199,10 +200,10 @@
           />
 
       <TextView
-          android:id="@+id/link_login"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="24dp"
+          android:id="@+id/signup_login_tv"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginBottom="16dp"
           android:gravity="center"
           android:text="@string/already_a_member_login"
           android:textColor="@android:color/white"

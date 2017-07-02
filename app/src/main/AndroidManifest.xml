@@ -23,7 +23,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name=".main.HomeActivity"
+        android:name=".utils.HomeActivity"
         android:label="@string/title_activity_home">
     </activity>
   </application>
